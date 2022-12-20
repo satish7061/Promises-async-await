@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crete+Round:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Promises Async Await Questions</h1>
+
+    <h3>Qu 1. Write one example explaining how you can write a callback function?</h3>
+<pre>
+    function greeting(name) {
+        console.log("Hello ",name);
+    }
+      
+    function Func(callback) {
+        callback("Satish");
+    }
+    Func(greeting);
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        Hello  Satish
+    </pre>
+</h2>
+    <h3>Qu 2. "Write callback function to print numbers from 1 to 7, in which 1 should be printed after 1 sec , 2 should be printed after 2 sec, 3 should be printed after 3 sec and so on. Explain callback hell?</h3>
+<pre>
+    function callbackHell(){
+        setTimeout(() => {
+            console.log("1");
+            setTimeout(() => {
+                console.log("2");
+                setTimeout(() => {
+                   console.log("3");
+                   setTimeout(() => {
+                       console.log("4");
+                       setTimeout(() => {
+                           console.log("5");
+                           setTimeout(() => {
+                               console.log("6");
+                               setTimeout(() => {
+                                   console.log("7")
+                               },7000);
+                           },6000);
+                       },5000);
+                   },4000);
+                },3000);
+            },2000);
+        },1000);
+    }
+    callbackHell()
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+    </pre>
+    <p> Callback Hell is essentially nested callbacks stacked below one another forming a pyramid structure.</p>
+</h2>
+
+    <h3>Qu 3. "Write promise function to print numbers from 1 to 7, in which 1 should be printed after 1 sec , 2 should be printed after 2 sec, 3 should be printed after 3 sec and so on?</h3>
+ <pre>
+    let counter = 0;
+    function timeOut(i) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+               resolve(++counter);
+            },  1000 * i)
+        });
+    }
+    for (let i = 1; i <= 7; i++) {
+        timeOut(i).then((x) => console.log( x))
+    }
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+    </pre>
+</h2>
+    <h3>Qu 4. Create a promise function accepting a argument, if yes is passed to the function then it should go to resolved state and print Promise Resolved, and if nothing is passed then it should go to reject state and catch the error and print Promise Rejected ?</h3>
+<pre>
+    const logUser = (arg) => {
+        return new Promise((resolve, reject) => {
+          if (arg=="YES"){
+              resolve("Promise Resolved");
+          } 
+          else{
+              reject("Promise Rejected");
+          }
+        });
+    };
+      
+    logUser("YES").then(
+        (value) => {  console.log(value) },
+        (error) => {  console.log(error) }
+    );
+    logUser()
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        Promise Resolved
+    </pre>
+</h2>
+
+
+<h3>Qu 5. Create examples to explain callback function?</h3>
+<pre>
+    function add(array) {
+        let sum = 0;
+        for(let i of array) {
+            sum += i;
+        }
+        console.log("Sum of array element is ",sum);
+    }
+    function arr(callback) {
+            callback([2, 3, 4]);
+    }
+    arr(add);
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        Sum of array element is  9
+    </pre>
+</h2>
+
+<h3>Qu 6. Create examples to explain callback hell function?</h3>
+<pre>
+    function callbackHell(){
+        setTimeout(() => {
+            console.log("Value 1");
+            setTimeout(() => {
+                console.log("Value 2");
+                setTimeout(() => {
+                   console.log("Value 3");
+                   setTimeout(() => {
+                       console.log("Value 4");
+                   },4000);
+                },3000);
+            },2000);
+        },1000);
+    }
+    callbackHell()
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        Value 1
+        Value 2
+        Value 3
+        Value 4
+    </pre>
+</h2>
+
+
+<h3>Qu 7. Create examples to explain promises function?</h3>
+<pre>
+    function display(val) {
+        console.log(val);
+    }
+      
+    let myPromise = new Promise(function(resolve, reject) {
+        let name="Satish";
+        if (name == "Satish") {
+          resolve("OK, Hello Satish");
+        } else {
+          reject("Error, wrong name");
+        }
+    });
+      
+    myPromise.then(
+        function(value) {display(value);},
+        function(error) {display(error);}
+    );
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        OK, Hello Satish
+    </pre>
+</h2>
+
+<h3>Qu 8. Create examples to explain async await function?</h3>
+<pre>
+    async function display() {
+        let myPromise = new Promise(function(resolve) {
+          setTimeout(function() {resolve("Hello");}, 3000);
+        });
+        console.log(await myPromise);
+    }
+    display();
+    console.log("Satish")
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        Satish
+        Hello
+    </pre>
+</h2>
+
+<h3>Qu 9. Create examples to explain promise.all function?</h3>
+<pre>
+    promise1 = Promise.resolve(300);
+    promise2 = 200
+    promise3 = new Promise(function(resolve, reject) {
+                 setTimeout(resolve, 100, 'Satish');
+               });
+    Promise.all([promise1, promise2, promise3]).then(function(val) {
+       console.log(val)
+    });
+</pre>
+<h2>
+    <pre>
+        Output :
+
+        [ 300, 200, 'Satish' ]
+    </pre>
+</h2>
+</body>
+</html>
